@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                BigInt          @id @default(autoincrement())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  username          String          @unique
+  email             String          @unique
+  password          String
+  followed_by       Follows[]       @relation("follower")
+  following         Follows[]       @relation("following")
+  owned_communities Community[]
+  communities       UserCommunity[]
+}
+
+model Follows {
+  follower_id  BigInt
+  following_id BigInt
+
+  follower  User @relation("follower", fields: [follower_id], references: [id], onDelete: Cascade)
+  following User @relation("following", fields: [following_id], references: [id], onDelete: Cascade)
+
+  @@id([follower_id, following_id])
+}
+
+model Post {
+  id        BigInt   @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  text      String?
+  rating    Int
+}
+
+model UserCommunity {
+  user_id      BigInt
+  community_id BigInt
+
+  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  community Community @relation(fields: [community_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, community_id])
+}
+
+model Community {
+  id            BigInt          @id @default(autoincrement())
+  owner_id      BigInt
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  name          String          @unique
+  description   String?
+  owner         User            @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+  UserCommunity UserCommunity[]
+}
