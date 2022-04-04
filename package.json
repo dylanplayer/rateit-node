@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/dylanplayer/rateit-node/issues"
   },
-  "homepage": "https://github.com/dylanplayer/rateit-node#readme"
+  "homepage": "https://github.com/dylanplayer/rateit-node#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "prisma": "^3.11.1",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.11.1"
+  }
 }
