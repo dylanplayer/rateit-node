@@ -4,7 +4,14 @@
     <input type="search" id="query" name="q" placeholder="Search" class="navbar-search-input" aria-label="Search" autocomplete="off">
   </form>
   <nav class="navbar-nav">
-    <a href="/login" class="btn btn-outline">Log In</a>
-    <a href="/signup" class="btn">Sign Up</a>
+    {{#if currentUser}}
+      <a href="/users/{{currentUser.username}}" class="navbar-nav-user td-none">
+        <img class="navbar-avatar" src="https://robohash.org/{{currentUser.username}}.png">
+        <p class="navbar-username">{{currentUser.username}}</p>
+      </a>
+    {{else}}
+      <a href="/login" class="btn btn-outline">Log In</a>
+      <a href="/signup" class="btn">Sign Up</a>
+    {{/if}}
   </nav>
 </div>
