@@ -1,0 +1,15 @@
+<div class="cols">
+  <div class="card">
+    <div class="card-header-left">
+      <h1 class="card-header-left-title">Edit Profile</h1>
+    </div>
+    <div class="card-body">
+      <div class="card-content">
+        <form action="/users/{{user.username}}/update" method="POST" class="card-form">
+          <textarea class="card-input-long" name="bio" placeholder="bio">{{user.bio}}</textarea>
+          <button type="submit" class="btn" style="align-self: flex-end;">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

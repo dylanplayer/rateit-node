@@ -45,11 +45,8 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
 require("./controllers/users")(app, prisma);
+require("./controllers/posts")(app, prisma);
 
 app.listen(PORT, () => {
   console.log(`App listening at http://localhost:${PORT}`);

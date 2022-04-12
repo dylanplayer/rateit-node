@@ -1,13 +1,12 @@
 <div class="navbar">
-  <img class="navbar-brand" src="/assets/logo.png" alt="Rateit Logo">
-  <form class="navbar-search" role="search">
+  <a href="/"><img class="navbar-brand" src="/assets/logo.png" alt="Rateit Logo"></a>
+  {{!-- <form class="navbar-search" role="search">
     <input type="search" id="query" name="q" placeholder="Search" class="navbar-search-input" aria-label="Search" autocomplete="off">
-  </form>
+  </form> --}}
   <nav class="navbar-nav">
     {{#if currentUser}}
-      <a href="/users/{{currentUser.username}}" class="navbar-nav-user td-none">
+      <a href="/users/{{currentUser.username}}" >
         <img class="navbar-avatar" src="https://robohash.org/{{currentUser.username}}.png">
-        <p class="navbar-username">{{currentUser.username}}</p>
       </a>
     {{else}}
       <a href="/login" class="btn btn-outline">Log In</a>

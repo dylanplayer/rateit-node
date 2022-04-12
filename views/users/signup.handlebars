@@ -6,9 +6,10 @@
     <div class="card-body">
       <div class="card-content">
         <form action="/signup" method="POST" class="card-form">
-          <input class="card-input-long" name="email" type="email" placeholder="email">
-          <input class="card-input-long" name="username" type="text" placeholder="username">
-          <input class="card-input-long" name="password" type="password" placeholder="password">
+          <input class="card-input-long" required name="email" type="email" placeholder="email">
+          <input class="card-input-long" required name="username" type="text" placeholder="username">
+          <input class="card-input-long" required name="password" type="password" placeholder="password">
+          <textarea class="card-input-long" name="bio" placeholder="bio"></textarea>
           <button type="submit" class="btn" style="align-self: flex-end;">Sign Up</button>
         </form>
       </div>

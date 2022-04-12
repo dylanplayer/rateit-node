@@ -1,5 +1,21 @@
 <div class="cols">
   <div class="main-col">
+    {{#if currentUser}}
+      <div class="card">
+        <div class="card-header-left">
+          <p class="card-header-left-title">New Post</p>
+        </div>
+        <div class="card-body">
+          <div class="card-content">
+            <form action="/posts/" method="POST" class="card-form">
+              <input class="card-input-long" name="title" type="text" placeholder="title">
+              <textarea class="card-input-long" name="text" placeholder="post content"></textarea>
+              <button type="submit" class="btn btn-sm" style="align-self: flex-end;">Post</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {{/if}}
     <div class="card">
       <div class="card-body row-center">
         <a class="btn btn-muted" href="/?sort=new">
@@ -12,63 +28,28 @@
         </a>
       </div>
     </div>
+    {{#each posts as | post |}}
       <div class="card">
         <div class="card-header-left">
-          <img src="https://robohash.org/johndoe.png" alt="johndoe avatar" class="card-header-left-avatar">
-          <a href="/u/johndoe" class="card-header-left-username">johndoe</a>
+          <img src="https://robohash.org/{{post.user.username}}.png" alt="{{post.user.username}} avatar" class="card-header-left-avatar">
+          <a href="/users/{{post.user.username}}" class="card-header-left-username">{{post.user.username}}</a>
         </div>
         <div class="card-body">
           <div class="card-votes">
-            <form action="/post/vote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/upvote.png" alt="upvote icon" class="card-vote-icon"></button></form>
-            <p class="card-vote-count">10</p>
-            <form action="/post/vote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/downvote.png" alt="downvote icon" class="card-vote-icon"></button></form>
+            <form action="/posts/{{post.id}}/upvote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/upvote.png" alt="upvote icon" class="card-vote-icon"></button></form>
+            <p class="card-vote-count">{{post.rating}}</p>
+            <form action="/posts/{{post.id}}/downvote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/downvote.png" alt="downvote icon" class="card-vote-icon"></button></form>
           </div>
           <div class="card-content">
-            <a href="/post/1" class="td-none"><h2 class="card-title">Post title</h2></a>
-            <a href="/post/1" class="td-none">
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </a>
+            <a href="/posts/{{post.id}}" class="td-none"><h2 class="card-title">{{post.title}}</h2></a>
+            {{#if post.text}}
+              <a href="/posts/{{post.id}}" class="td-none">
+                <p class="card-text">{{post.text}}</p>
+              </a>
+            {{/if}}
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header-left">
-          <img src="https://robohash.org/johndoe.png" alt="johndoe avatar" class="card-header-left-avatar">
-          <a href="/u/johndoe" class="card-header-left-username">johndoe</a>
-        </div>
-        <div class="card-body">
-          <div class="card-votes">
-            <form action="/post/vote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/upvote.png" alt="upvote icon" class="card-vote-icon"></button></form>
-            <p class="card-vote-count">10</p>
-            <form action="/post/vote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/downvote.png" alt="downvote icon" class="card-vote-icon"></button></form>
-          </div>
-          <div class="card-content">
-            <a href="/post/1" class="td-none"><h2 class="card-title">Post title</h2></a>
-            <a href="/post/1" class="td-none">
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </a>
-          </div>
-        </div>
-      </div>
-  </div>
-  <div class="side-col">
-    <div class="card">
-      <div class="card-header-center">
-        <h1>Communities</h1>
-      </div>
-      <div class="card-body-center">
-        <div class="card-list">
-          <div class="card-list-item">
-            <a class="td-none"><h2 class="card-list-item-name">Dogs</h2></a>
-            <form action="/communities/1/join" method="post"><input type="hidden" name="user_id" value="1"><button type="submit" class="btn btn-sm">Join</button></form>
-          </div>
-          <div class="card-list-item">
-            <a class="td-none"><h2 class="card-list-item-name">Cats</h2></a>
-            <form action="/communities/1/join" method="post"><input type="hidden" name="user_id" value="1"><button type="submit" class="btn btn-sm">Join</button></form>
-          </div>
-        </div>
-        <a href="/communities/" class="btn-100">View All</a>
-      </div>
-    </div>
+    {{/each}}
   </div>
 </div>

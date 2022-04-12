@@ -1,0 +1,64 @@
+<div class="cols">
+  <div class="main-col">
+    <div class="card">
+      <div class="card-body row-center">
+        <a class="btn btn-muted" href="/users/{{user.username}}?sort=new">
+          <img class="btn-icon" src="/assets/new.png" alt="New Icon">
+          New
+        </a>
+        <a class="btn btn-muted" href="/users/{{user.username}}?sort=popular">
+          <img class="btn-icon" src="/assets/popular.png" alt="Popular Icon">
+          Popular
+        </a>
+      </div>
+    </div>
+      {{#each posts as | post |}}
+        <div class="card">
+          <div class="card-header-left">
+            <img src="https://robohash.org/{{post.user.username}}.png" alt="{{post.user.username}} avatar" class="card-header-left-avatar">
+            <a href="/users/{{post.user.username}}" class="card-header-left-username">{{post.user.username}}</a>
+          </div>
+          <div class="card-body">
+            <div class="card-votes">
+              <form action="/posts/{{post.id}}/upvote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/upvote.png" alt="upvote icon" class="card-vote-icon"></button></form>
+              <p class="card-vote-count">{{post.rating}}</p>
+              <form action="/posts/{{post.id}}/downvote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/downvote.png" alt="downvote icon" class="card-vote-icon"></button></form>
+            </div>
+            <div class="card-content">
+              <a href="/posts/{{post.id}}" class="td-none"><h2 class="card-title">{{post.title}}</h2></a>
+              {{#if post.text}}
+                <a href="/posts/{{post.id}}" class="td-none">
+                  <p class="card-text">{{post.text}}</p>
+                </a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+  </div>
+  <div class="side-col">
+    <div class="card">
+      <div class="card-header-center">
+        <img class="card-header-center-avatar" src="https://robohash.org/{{user.username}}" alt="{{user.username}} avatar">
+        <h1 class="card-header-center-username">{{user.username}}</h1>
+      </div>
+      <div class="card-body-center">
+        {{#if user.bio}}
+          <p class="card-body-bio">{{user.bio}}</p>
+        {{/if}}
+        <div class="card-body-buttons">
+          {{#if currentUserIsUser}}
+            <a href="/users/{{user.username}}/edit" class="btn-100 m-0">Edit</a>
+            <a href="/logout" class="btn-100 m-0">Logout</a>
+          {{else}}
+            {{#if userFollowsUser}}
+              <form class="card-form" action="/users/{{user.username}}/unfollow" method="POST"><button type="submit" class="btn-100">Unfollow</button></form>
+            {{else}}
+              <form class="card-form" action="/users/{{user.username}}/follow" method="POST"><button type="submit" class="btn-100">Follow</button></form>
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
