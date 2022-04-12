@@ -9,6 +9,11 @@
   <title>RATEIT</title>
 </head>
 <body>
+  {{#if message}}
+    <div class="message-container">
+      <p class="message">{{message}}</p>
+    </div>
+  {{/if}}
   {{> navbar }}
   <div class="content">
     {{{body}}}

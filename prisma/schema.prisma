@@ -14,10 +14,13 @@ model User {
   username          String          @unique
   email             String          @unique
   password          String
-  followed_by       Follows[]       @relation("follower")
-  following         Follows[]       @relation("following")
+  bio               String?
+  followed_by       Follows[]       @relation("following")
+  following         Follows[]       @relation("follower")
   owned_communities Community[]
   communities       UserCommunity[]
+  posts             Post[]
+  comments          Comment[]
 }
 
 model Follows {
@@ -36,15 +39,20 @@ model Post {
   updatedAt DateTime @updatedAt
   title     String
   text      String?
-  rating    Int
+  rating    Int     @default(0)
+  user_id   BigInt
+  user      User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  community_id BigInt?
+  community Community? @relation(fields: [community_id], references: [id], onDelete: Cascade)
+  comments  Comment[]
 }
 
 model UserCommunity {
   user_id      BigInt
   community_id BigInt
 
-  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  community Community @relation(fields: [community_id], references: [id], onDelete: Cascade)
+  user         User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  community    Community @relation(fields: [community_id], references: [id], onDelete: Cascade)
 
   @@id([user_id, community_id])
 }
@@ -58,4 +66,16 @@ model Community {
   description   String?
   owner         User            @relation(fields: [owner_id], references: [id], onDelete: Cascade)
   UserCommunity UserCommunity[]
+  posts         Post[]
+}
+
+model Comment {
+  id          BigInt      @id @default(autoincrement())
+  text        String
+  user_id     BigInt
+  user        User        @relation(fields: [user_id], references: [id])
+  post_id     BigInt
+  post        Post        @relation(fields: [post_id], references: [id])
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 }

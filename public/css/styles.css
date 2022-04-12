@@ -1,6 +1,35 @@
 html, body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin: 0;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.message-container {
+  position: fixed;
+  align-self: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffe1acab;
+  color: #202020ab;
+  border-radius: 10px;
+}
+
+.message {
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .navbar {
@@ -18,6 +47,35 @@ html, body {
 .navbar-brand {
   height: 50px;
   margin-left: 1rem;
+}
+
+.navbar-nav-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #FEFEFE;
+  min-width: 200px;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.navbar-nav-user:hover {
+  background-color: #E9E9E9;
+}
+
+.navbar-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #6886C5;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.navbar-username {
+  font-size: 18px;
+  font-weight: normal;
+  margin-right: 5px;
 }
 
 .navbar-search {
@@ -121,6 +179,7 @@ html, body {
 
 .content {
   min-height: 95vh;
+  width: 100%;
   background-color: #E9E9E9;
   padding-top: 15px;
   display: flex;
@@ -136,6 +195,7 @@ html, body {
   align-items: flex-start;
   justify-content: center;
   gap: 15px;
+  margin-bottom: 1rem;
 }
 
 .main-col {
@@ -216,6 +276,19 @@ html, body {
   color: #202020;
 }
 
+.card-header-center-username {
+  font-size: 24px;
+  color: #202020;
+}
+
+.card-header-center-avatar {
+  width: 100px;
+  height: 100px;
+  background-color: #7a8fbd;
+  border-radius: 50%;
+  margin-top: 1rem;
+}
+
 .card-votes {
   display: flex;
   flex-direction: column;
@@ -242,6 +315,7 @@ html, body {
 }
 
 .card-content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -265,7 +339,7 @@ html, body {
 
 .card-header-center {
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   background-color: #FFE0AC;
   display: flex;
   flex-direction: column;
@@ -303,7 +377,83 @@ html, body {
   border-bottom: 1px solid #2020201F;
 }
 
+.card-list-item-col {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #2020201F;
+}
+
 .card-list-item-name {
   font-size: 18px;
   font-weight: 400px;
+}
+
+.card-header-left-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.card-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-input-long {
+  margin-bottom: 10px;
+  font: 18px system-ui;
+  color: #202020;
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px transparent;
+  background-color: #E9E9E9;
+  resize: vertical;
+}
+
+.card-body-buttons {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 1rem;
+}
+
+.m-0 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.comment-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 0;
+  margin-top: 1rem;
+}
+
+.card-body-bio {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.comment-header-username {
+  margin-bottom: 0px;
+  margin-left: 5px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #202020;
+}
+
+.comment-text {
+  margin-top: 0px;
 }

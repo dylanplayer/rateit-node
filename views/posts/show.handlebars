@@ -1,0 +1,60 @@
+<div class="main-col">
+  <div class="card">
+    <div class="card-header-left">
+      <img src="https://robohash.org/{{post.user.username}}.png" alt="{{post.user.username}} avatar" class="card-header-left-avatar">
+      <a href="/users/{{post.user.username}}" class="card-header-left-username">{{post.user.username}}</a>
+    </div>
+    <div class="card-body">
+      <div class="card-votes">
+        <form action="/posts/{{post.id}}/vote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/upvote.png" alt="upvote icon" class="card-vote-icon"></button></form>
+        <p class="card-vote-count">{{post.rating}}</p>
+        <form action="/posts/{{post.id}}/vote" method="post"><input type="hidden" value="1" name="user_id"><button class="card-vote-button" type="submit"><img src="/assets/downvote.png" alt="downvote icon" class="card-vote-icon"></button></form>
+      </div>
+      <div class="card-content">
+        <a href="/posts/{{post.id}}" class="td-none"><h2 class="card-title">Post title</h2></a>
+        {{#if post.text}}
+          <a href="/posts/{{post.id}}" class="td-none">
+            <p class="card-text">{{post.text}}</p>
+          </a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{#if currentUser}}
+    <div class="card">
+      <div class="card-header-left">
+        <p class="card-header-left-title">New Comment</p>
+      </div>
+      <div class="card-body">
+        <div class="card-content">
+          <form action="/posts/{{post.id}}/comments/" method="POST" class="card-form">
+            <textarea class="card-input-long" name="text" placeholder="write a comment"></textarea>
+            <button type="submit" class="btn btn-sm" style="align-self: flex-end;">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+  {{#if post.comments}}
+    <div class="card">
+      <div class="card-header-left">
+        <p class="card-header-left-title">Comments</p>
+      </div>
+      <div class="card-body-center">
+        <div class="card-list">
+          {{#each post.comments as | comment |}}
+            <div class="card-list-item-col">
+              <div class="comment-header">
+                <img src="https://robohash.org/{{comment.user.username}}.png" alt="{{comment.user.username}} avatar" class="card-header-left-avatar">
+                <a href="/users/{{comment.user.username}}" class="comment-header-username">{{comment.user.username}}</a>
+              </div>
+              <div class="card-body">
+                <p class="comment-text">{{comment.text}}</p>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</div>
